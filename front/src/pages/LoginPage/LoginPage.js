@@ -1,16 +1,30 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
-function RegisterPage() {
+function LoginPage() {
     const {
         register,
         handleSubmit,
         formState: {errors},
-        reset,
-        watch,
-      } = useForm();
+        // reset,
+        // watch,
+      } = useForm({mode:'onChange'});
     // const onSubmit = data => console.log(data);
-    function onSubmit(data){console.log(data);}
+    async function onSubmit({email,password}){
+        const body = {
+            email, password
+        };
+        try {
+            const res = await axios.post("/user/login", body);
+            toast.info(res.data.message);
+            console.log(res.data.accessToken);
+        } catch (error) {
+            toast.info(error.response.data.error)
+        }
+        // console.log(data);
+    }
     const userEmail = {
     required: {
         value: true,
@@ -38,7 +52,7 @@ function RegisterPage() {
   return (
     <section className='flex max-w-[400px] m-auto rounded-md border mt-20 bg-white shadow-md'>
         <div className='m-auto w-full p-6'>
-            <h2 className='font-semibold text-center mb-4'>회원가입</h2>
+            <h2 className='font-semibold text-center mb-4'>로그인</h2>
             <hr className='mb-4' />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='mb-4'>
@@ -82,4 +96,4 @@ function RegisterPage() {
   )
 }
 
-export default RegisterPage
+export default LoginPage

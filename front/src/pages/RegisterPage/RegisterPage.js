@@ -1,7 +1,7 @@
-// import { Axios } from 'axios';
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 function RegisterPage() {
     const {
@@ -10,26 +10,48 @@ function RegisterPage() {
         formState: {errors},
         reset,
         watch,
-      } = useForm();
+      } = useForm({mode:'onChange'});
     // const onSubmit = data => console.log(data);
-    function onSubmit({email,name, password}){
+    async function onSubmit({email,name, password}){
         const body = {
             email,name, password
         };
-    // Axios.post(url,body);
-    toast('🦄 회원가입을 성공하였습니다.', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        // transition: Bounce,
-        });
-    console.log(body);
-    reset();  
+        try {
+            console.log("1")
+            const response = await axios.post("/user/register",body)
+            console.log ("성공",response.data ) 
+            toast('🐱👍👍😁회원가입 성공하였습니다.', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                // transition: Bounce,
+                });
+                console.log(body);
+                reset();  
+        } catch (error) {
+            console.log ("요청실패 : " + error ) 
+            // Axios.post(url,body);
+            toast('🐱‍🐉회원가입 실패하였습니다.', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                // transition: Bounce,
+                });
+                console.log(body);
+                reset();  
+        }
+        
+        
     }
     const userEmail = {
     required: {
@@ -138,9 +160,8 @@ function RegisterPage() {
                 <div className='mb-4'>
                     <button className='w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-800'>회원가입</button>
                 </div>
-                <div className='text-center text-sm'>아이디가 있다면 <a href='./login' className="text-slate-500">로그인</a>하세요</div>
             </form>
-            
+            <div className='text-center text-sm'>아이디가 있다면 <a href='./login' className="text-slate-500">로그인</a>하세요</div>
         </div>
     </section>
   )
