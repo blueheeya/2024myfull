@@ -1,29 +1,24 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import React from "react";
+import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {loginUser} from "../../store/thunkFunctions";
 
 function LoginPage() {
     const {
         register,
         handleSubmit,
         formState: {errors},
-        // reset,
+        reset,
         // watch,
       } = useForm({mode:'onChange'});
     // const onSubmit = data => console.log(data);
+    const dispatch = useDispatch();
     async function onSubmit({email,password}){
         const body = {
             email, password
         };
-        try {
-            const res = await axios.post("/user/login", body);
-            toast.info(res.data.message);
-            console.log(res.data.accessToken);
-        } catch (error) {
-            toast.info(error.response.data.error)
-        }
-        // console.log(data);
+        dispatch(loginUser(body));
+        reset();
     }
     const userEmail = {
     required: {
