@@ -45,9 +45,9 @@ userRouter.post("/login", async(req, res)=>{
             email:user.email
         }
         const accessToken = jwt.sign(payload,process.env.SECRET_KEY,{expiresIn:"1h"});
-        return res.status(200).send({user,accessToken,message:"login ok"})
+        return res.status(200).send({user,accessToken,message:"로그인에 성공하였습니다."})
     } catch(error) {
-
+       console.log("로그인에 실패했습니다.");
     }
 })
 module.exports = userRouter
