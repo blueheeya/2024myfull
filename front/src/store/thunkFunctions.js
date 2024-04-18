@@ -9,3 +9,12 @@ export const loginUser = createAsyncThunk("user/loginUser", async (body) => {
     console.log(error);
   }
 });
+
+export const authUser = createAsyncThunk("user/authUser", async (_) => {
+  try {
+    const response = await axiosInstance.get(`/user/auth`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});

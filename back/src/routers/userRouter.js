@@ -4,6 +4,7 @@ const userRouter = express.Router();
 const User = require("../models/User");
 const {hash, compare} = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth")
 
 userRouter.get('/', async (req,res)=>{
     try {
@@ -50,4 +51,19 @@ userRouter.post("/login", async(req, res)=>{
        console.log("로그인에 실패했습니다.");
     }
 })
-module.exports = userRouter
+
+userRouter.get("/auth", auth, async (req, res) => {
+    try {
+      const user = {
+        id: req.user.id,
+        email: req.user.email,
+        name: req.user.name,
+        role: req.user.role,
+        image: req.user.image,
+      };
+      return res.status(200).send({user});
+    } catch (e) {
+      return res.status(500).send({error: e.message});
+    }
+  });
+module.exports = userRouter;

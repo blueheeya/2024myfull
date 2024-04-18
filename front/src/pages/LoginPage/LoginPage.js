@@ -13,13 +13,15 @@ function LoginPage() {
       } = useForm({mode:'onChange'});
     // const onSubmit = data => console.log(data);
     const dispatch = useDispatch();
-    async function onSubmit({email,password}){
-        const body = {
-            email, password
-        };
-        dispatch(loginUser(body));
-        reset();
-    }
+  async function onSubmit({email, password}) {
+    const body = {
+      email,
+      password,
+    };
+
+    dispatch(loginUser(body));
+    reset();
+  }
     const userEmail = {
     required: {
         value: true,
