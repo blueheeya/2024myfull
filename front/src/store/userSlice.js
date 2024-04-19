@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {loginUser} from "./thunkFunctions";
+import {loginUser, modifyUser} from "./thunkFunctions";
 import {toast} from "react-toastify";
-import {authUser} from "./thunkFunctions";
+import {authUser, logoutUser} from "./thunkFunctions";
 
 const initialState = {
   userData: {
@@ -35,8 +35,9 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        toast.error(action.payload);
+        toast.error(action.payload.message);
       })
+      //로그인 완료
       .addCase(authUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -51,6 +52,38 @@ const userSlice = createSlice({
         state.isAuth = false;
         state.userData = initialState.userData;
         localStorage.removeItem("accessToken");
+      })
+      //회원정보 수정
+      .addCase(modifyUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(modifyUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload;
+        state.isAuth = true;
+      })
+      .addCase(modifyUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.isAuth = false;
+        state.userData = initialState.userData;
+        localStorage.removeItem("accessToken");
+      })
+
+      //회원 로그아웃
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = initialState.userData; // 초기화
+        state.isAuth = false;
+        localStorage.removeItem("accessToken"); //토큰 삭제
+        // toast.info(action.payload.message);
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

@@ -18,3 +18,21 @@ export const authUser = createAsyncThunk("user/authUser", async (_) => {
     console.log(error);
   }
 });
+//회원정보 수정
+export const modifyUser = createAsyncThunk("user/modifyUser", async (_) => {
+  try {
+    const response = await axiosInstance.get(`/user/modifyUser`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const logoutUser = createAsyncThunk("user/logout", async (_) => {
+  try {
+    const response = await axiosInstance.get(`/user/logout`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});

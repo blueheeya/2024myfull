@@ -11,6 +11,7 @@ import Footer from "./layout/Footer";
 import CompanyPage from "./pages/companyPage/CompanyPage";
 import NotAuthRouter from "./components/NotAuthRouter";
 import ProtectedRouter from "./components/ProtectedRouter";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 function Layout() {
   return (
@@ -44,6 +45,7 @@ function App() {
         </Route>
         <Route element={<ProtectedRouter isAuth={isAuth} />}>
           <Route path="/company" element={<CompanyPage />}></Route>
+          <Route path="/profile" element={<ProfilePage />}></Route>
         </Route>
       </Route>
     </Routes>
