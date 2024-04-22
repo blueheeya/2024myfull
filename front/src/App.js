@@ -12,6 +12,7 @@ import CompanyPage from "./pages/companyPage/CompanyPage";
 import NotAuthRouter from "./components/NotAuthRouter";
 import ProtectedRouter from "./components/ProtectedRouter";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import MainPage from "./layout/Main/MainPage";
 
 function Layout() {
   return (
@@ -38,8 +39,8 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<Layout />}>
-
-        <Route element={<NotAuthRouter isAuth={isAuth}/>} >
+        <Route index element={<MainPage />} />
+          <Route element={<NotAuthRouter isAuth={isAuth}/>} >
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/login" element={<LonginPage />}></Route>
         </Route>
