@@ -4,13 +4,17 @@ import styled from 'styled-components';
 const ButtonWrap = styled.button`
 padding : 5px 16px;
 display: block;
-background: #333;
-border-radius : 5px;
+background: #20477C;
+border-radius : 20px;
 color: #fff;
 &.text-button{
-    border: solid 1px #333;
+    border: solid 1px #8BA6C9;
     background: #fff;
-    color: #333;
+    color: #8BA6C9;
+}
+&.text-button:hover {
+    border: solid 1px #20477C;
+    color: #20477C;
 }
 &.smaill {
     font-size: 12px;

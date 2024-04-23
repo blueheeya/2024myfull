@@ -9,6 +9,7 @@ function Navbar() {
         {to: "/login", name : "로그인" , auth:false },
         {to: "/register", name : "회원가입", auth:false },
         {to: "/company", name : "회사소개", auth:true },
+        {to: "/blog", name : "블로그", auth:true },
         {to: "/profile", name : "정보수정", auth:true },
         {to: "", name : "로그아웃", auth:true },
         
@@ -25,7 +26,7 @@ function Navbar() {
     <>
         <header className='w-full shadow-md'>
             <div className='container mx-auto flex justify-between'>
-                <h1 className='font-semibold p-4'><Link to='/'>회사소개</Link></h1>
+                <h1 className='font-semibold p-4'><Link to='/'>룰루랄라</Link></h1>
                 <ul className='flex'>
                     {
                         routes.map(({to,name,auth})=>{
