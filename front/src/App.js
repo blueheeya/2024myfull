@@ -14,6 +14,7 @@ import ProtectedRouter from "./components/ProtectedRouter";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import MainPage from "./layout/Main/MainPage";
 import BlogListPage from "./pages/blogPage/BlogListPage";
+import BlogViewPage from "./pages/blogPage/BlogViewPage";
 
 function Layout() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route element={<ProtectedRouter isAuth={isAuth} />}>
           <Route path="/company" element={<CompanyPage />}></Route>
           <Route path="/blog" element={<BlogListPage />}></Route>
+          <Route path="/blog/:blogId" element={<BlogViewPage />}></Route>
           <Route path="/profile" element={<ProfilePage />}></Route>
         </Route>
       </Route>
