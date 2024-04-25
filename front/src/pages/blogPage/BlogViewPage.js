@@ -8,7 +8,7 @@ import SectionWrap from '../../components/Section';
 import styled from 'styled-components';
 import CommentWrite from './blogComp/CommentWrite';
 import {useSelector} from 'react-redux'
-import CommentList from './blogComp/CommentList';
+import CommentList from "./blogComp/CommentList";
 
 const CommentWrap = styled.div `
     background : #eee;
@@ -24,6 +24,8 @@ function BlogViewPage() {
   
     const userData = useSelector((state) => state.user?.userData);
   
+    console.log("ok1");
+  
     useEffect(() => {
       async function loadBlogCon() {
         try {
@@ -32,7 +34,7 @@ function BlogViewPage() {
         } catch (error) {}
       }
       loadBlogCon();
-    }, []);
+    }, [blogId]);
   
     useEffect(() => {
       async function comment() {
@@ -45,9 +47,9 @@ function BlogViewPage() {
         }
       }
       comment();
-    }, []);
-  
-    async function handleInserComment(commentContent) {
+    }, [blogId]);
+    if (!blogCon) return null;
+    const handleInserComment = async (commentContent) => {
       // alert(commentContent);
       const commentData = {
         content: commentContent,
@@ -56,12 +58,14 @@ function BlogViewPage() {
       console.log(commentData);
   
       try {
-        const res = axiosInstance.post(`/blog/${blogId}/comment`, commentData);
-        console.log(res.data);
-      } catch (error) {}
-    }
-  
-    if (!blogCon) return null;
+        const res = await axiosInstance.post(`/blog/${blogId}/comment`, commentData);
+        console.log((await res).data);
+        const newComment = res.data.newComment;
+        setComment(...comment, newComment);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
   return (
     <>
     <SectionWrap>
@@ -75,13 +79,13 @@ function BlogViewPage() {
             <h5>댓글작성</h5>
             <CommentWrite onSubmit={handleInserComment} />
 
-                {comment.length === 0 ? (
-                    <p>댓글없네요!!!!!</p>
-                ) : (
-                    comment.map((item, idx) => {
-                    return <CommentList comment={item} key={idx} />;
-                    })
-                )}
+            {comment.length === 0 ? (
+            <p>댓글없네요!!!!!</p>
+          ) : (
+            comment.map((item, idx) => {
+              return <CommentList comment={comment} key={idx} />;
+            })
+          )}
         </CommentWrap>
         <Button textOnly={true} className={"home, m-auto"} data="test" >목록</Button>
     </SectionWrap>
