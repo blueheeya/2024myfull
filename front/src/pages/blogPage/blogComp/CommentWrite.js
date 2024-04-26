@@ -14,8 +14,7 @@ function CommentWrite({onSubmit}) {
   return (
     <div>
         <form onSubmit={handleSubmit} className="flex">
-            <input type='text' onChange={handleInputChange} placeholder='댓글을 입력해주세요.' value={commentText} className='border w-max-[250px] rounded-md' />
-            {commentText}
+            <input type='text' onChange={handleInputChange} placeholder='댓글을 입력해주세요.' value={commentText} className='border w-max rounded-md' />
             <Button>등록</Button>
         </form>
     </div>

@@ -1,0 +1,19 @@
+/*tailwind.css*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #333;
+}
+
+ul, li {
+  color: #333;
+  list-style: none;
+}/*# sourceMappingURL=style.css.map */

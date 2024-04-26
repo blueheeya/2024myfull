@@ -19,6 +19,10 @@ color: #fff;
 &.smaill {
     font-size: 12px;
 }
+&.delet {
+    font-size: 12px;
+    border-radius : 5px;
+}
 `;
 
 function Button({children,textOnly,className, ...props}) {
